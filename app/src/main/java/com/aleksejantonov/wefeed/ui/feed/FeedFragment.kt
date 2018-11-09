@@ -25,9 +25,14 @@ class FeedFragment : Fragment(), MvpView {
     presenter.onAttach(this)
   }
 
-  override fun onDestroy() {
+  override fun onDestroyView() {
     presenter.detach()
+    super.onDestroyView()
+  }
+
+  override fun onDestroy() {
     super.onDestroy()
+    activity?.let { if (it.isFinishing) SL.componentManager().releaseFeedComponent() }
   }
 
   override fun showItems() {
