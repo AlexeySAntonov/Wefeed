@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aleksejantonov.wefeed.R
+import com.aleksejantonov.wefeed.sl.SL
+import kotlinx.android.synthetic.main.fragment_feed.mock
 
-class FeedFragment : Fragment() {
+class FeedFragment : Fragment(), MvpView {
   companion object {
     fun newInstance() = FeedFragment()
   }
+
+  private val presenter by lazy { SL.componentManager().feedComponent().presenter }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_feed, container, false)
@@ -18,5 +22,15 @@ class FeedFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    presenter.onAttach(this)
+  }
+
+  override fun onDestroy() {
+    presenter.detach()
+    super.onDestroy()
+  }
+
+  override fun showItems() {
+    mock.visibility = View.VISIBLE
   }
 }
