@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import com.aleksejantonov.wefeed.R
 import com.aleksejantonov.wefeed.ui.feed.adapter.CardsAdapter.CardViewHolder
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
-import kotlinx.android.synthetic.main.item_post.view.text
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import kotlinx.android.synthetic.main.item_post.view.postUserAvatar
+import kotlinx.android.synthetic.main.item_post.view.userName
 
 class CardsAdapter : RecyclerView.Adapter<CardViewHolder>() {
 
@@ -33,7 +36,15 @@ class CardsAdapter : RecyclerView.Adapter<CardViewHolder>() {
   inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(post: PostVM) {
       itemView.apply {
-        text.text = post.mock
+        userName.text = post.name
+        Glide.with(context)
+            .load(post.imageUrl)
+            .apply(
+                RequestOptions
+                    .circleCropTransform()
+//                    .placeholder(R.drawable.avatar_placeholder)
+            )
+            .into(postUserAvatar)
       }
     }
   }

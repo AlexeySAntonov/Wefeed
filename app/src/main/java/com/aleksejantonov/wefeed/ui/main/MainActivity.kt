@@ -12,6 +12,7 @@ import com.vk.sdk.VKAccessToken
 import com.vk.sdk.VKCallback
 import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKError
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
       }
 
       override fun onError(error: VKError) {
-        Log.e("VKAccessError", error.errorMessage)
+        Timber.e(error.errorMessage)
       }
     }
 

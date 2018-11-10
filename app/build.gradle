@@ -27,6 +27,7 @@ ext {
   vkSdk = "1.6.5"
   retrofit = "2.4.0"
   stackView = "2.0.0"
+  glide = "4.8.0"
   stetho = "1.5.0"
 }
 
@@ -51,9 +52,16 @@ dependencies {
   //Swipe
   implementation "com.yuyakaido.android:card-stack-view:$stackView"
 
+  //Image
+  implementation "com.github.bumptech.glide:glide:$glide"
+  kapt "com.github.bumptech.glide:compiler:$glide"
+
   //Utils
   implementation "com.facebook.stetho:stetho:$stetho"
   implementation "com.facebook.stetho:stetho-okhttp3:$stetho"
+
+  //Logging
+  implementation 'com.jakewharton.timber:timber:4.7.1'
 
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'com.android.support.test:runner:1.0.2'

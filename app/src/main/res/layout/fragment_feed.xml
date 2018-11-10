@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/feedScreenBackground"
+    android:paddingTop="@dimen/guide_margin_padding">
 
   <com.yuyakaido.android.cardstackview.CardStackView
       android:id="@+id/recycler"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_margin="@dimen/card_side_margin"
+      app:layout_constraintBottom_toTopOf="@+id/skipButton"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
+
+  <ImageView
+      android:id="@+id/skipButton"
+      android:layout_width="@dimen/action_buttons_size"
+      android:layout_height="@dimen/action_buttons_size"
+      android:layout_marginBottom="@dimen/guide_margin_padding"
+      android:layout_marginTop="@dimen/guide_margin_padding"
+      android:background="@drawable/bg_action_buttons"
+      android:elevation="4dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/likeButton"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/recycler"
+      app:srcCompat="@drawable/ic_skip_36"/>
+
+  <ImageView
+      android:id="@+id/likeButton"
+      android:layout_width="@dimen/action_buttons_size"
+      android:layout_height="@dimen/action_buttons_size"
+      android:background="@drawable/bg_action_buttons"
+      android:elevation="4dp"
+      app:layout_constraintBottom_toBottomOf="@+id/skipButton"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/skipButton"
+      app:layout_constraintTop_toTopOf="@+id/skipButton"
+      app:srcCompat="@drawable/ic_like_36"/>
 
 </android.support.constraint.ConstraintLayout>

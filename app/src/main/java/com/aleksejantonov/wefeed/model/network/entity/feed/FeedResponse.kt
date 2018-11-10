@@ -1,6 +1,6 @@
 package com.aleksejantonov.wefeed.model.network.entity.feed
 
-data class ResponseContainer(val response: FeedResponse)
+data class FeedResponseContainer(val response: FeedResponse)
 data class FeedResponse(val items: List<Post>)
 
 data class Post(

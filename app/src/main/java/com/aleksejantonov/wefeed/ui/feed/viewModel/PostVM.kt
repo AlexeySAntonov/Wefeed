@@ -1,3 +1,3 @@
 package com.aleksejantonov.wefeed.ui.feed.viewModel
 
-data class PostVM(val mock: String)
+data class PostVM(val text: String, val name: String = "", val imageUrl: String = "")
