@@ -25,6 +25,7 @@ class FeedPresenter : MvpPresenter {
   }
 
   private fun loadData() {
+    view?.showLoading()
     api.newsFeed(token = preferencesManager.getToken()).enqueue(object : retrofit2.Callback<FeedResponseContainer> {
       override fun onResponse(call: Call<FeedResponseContainer>, response: Response<FeedResponseContainer>) {
         if (response.isSuccessful) {
@@ -50,6 +51,7 @@ class FeedPresenter : MvpPresenter {
                 for (i in 0 until groups.size) {
                   postVMs[i] = postVMs[i].copy(name = groups[0].name, imageUrl = groups[i].photo_50)
                 }
+                view?.hideLoading()
                 view?.showItems(postVMs)
               }
             }

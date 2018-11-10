@@ -43,4 +43,8 @@
       app:layout_constraintTop_toTopOf="@+id/skipButton"
       app:srcCompat="@drawable/ic_like_36"/>
 
+  <include
+      layout="@layout/overlay_progress"
+      android:id="@+id/progressOverlay"/>
+
 </android.support.constraint.ConstraintLayout>

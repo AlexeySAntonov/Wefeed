@@ -9,7 +9,9 @@ import com.aleksejantonov.wefeed.R
 import com.aleksejantonov.wefeed.sl.SL
 import com.aleksejantonov.wefeed.ui.feed.adapter.CardsAdapter
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
+import com.aleksejantonov.wefeed.util.visible
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
+import kotlinx.android.synthetic.main.fragment_feed.progressOverlay
 import kotlinx.android.synthetic.main.fragment_feed.recycler
 
 class FeedFragment : Fragment(), MvpView {
@@ -44,8 +46,16 @@ class FeedFragment : Fragment(), MvpView {
     adapter.updateItems(items)
   }
 
+  override fun showLoading() {
+    progressOverlay.visible = true
+  }
+
+  override fun hideLoading() {
+    progressOverlay.visible = false
+  }
+
   private fun setupRecycler() {
-    with (recycler) {
+    with(recycler) {
       layoutManager = CardStackLayoutManager(context)
       adapter = this@FeedFragment.adapter
     }
