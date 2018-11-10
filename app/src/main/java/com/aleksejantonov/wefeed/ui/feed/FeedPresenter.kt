@@ -3,6 +3,7 @@ package com.aleksejantonov.wefeed.ui.feed
 import android.util.Log
 import com.aleksejantonov.wefeed.model.network.entity.feed.ResponseContainer
 import com.aleksejantonov.wefeed.sl.SL
+import com.aleksejantonov.wefeed.util.toVM
 import retrofit2.Call
 import retrofit2.Response
 
@@ -23,7 +24,9 @@ class FeedPresenter : MvpPresenter {
   private fun loadData() {
     api.newsFeed(token = preferencesManager.getToken()).enqueue(object : retrofit2.Callback<ResponseContainer> {
       override fun onResponse(call: Call<ResponseContainer>, response: Response<ResponseContainer>) {
-        Log.d("", "")
+        if (response.isSuccessful) {
+          response.body()?.let { view?.showItems(it.response.items.map { post -> post.toVM() }) }
+        }
       }
 
       override fun onFailure(call: Call<ResponseContainer>, t: Throwable) {

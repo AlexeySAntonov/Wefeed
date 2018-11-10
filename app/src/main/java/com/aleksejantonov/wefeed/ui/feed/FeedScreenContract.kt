@@ -1,7 +1,9 @@
 package com.aleksejantonov.wefeed.ui.feed
 
+import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
+
 interface MvpView {
-  fun showItems()
+  fun showItems(items: List<PostVM>)
 }
 
 interface MvpPresenter {

@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.aleksejantonov.wefeed.R
 import com.aleksejantonov.wefeed.sl.SL
-import kotlinx.android.synthetic.main.fragment_feed.mock
+import com.aleksejantonov.wefeed.ui.feed.adapter.CardsAdapter
+import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager
+import kotlinx.android.synthetic.main.fragment_feed.recycler
 
 class FeedFragment : Fragment(), MvpView {
   companion object {
@@ -15,6 +18,7 @@ class FeedFragment : Fragment(), MvpView {
   }
 
   private val presenter by lazy { SL.componentManager().feedComponent().presenter }
+  private val adapter by lazy { CardsAdapter() }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_feed, container, false)
@@ -22,6 +26,7 @@ class FeedFragment : Fragment(), MvpView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setupRecycler()
     presenter.onAttach(this)
   }
 
@@ -35,7 +40,14 @@ class FeedFragment : Fragment(), MvpView {
     activity?.let { if (it.isFinishing) SL.componentManager().releaseFeedComponent() }
   }
 
-  override fun showItems() {
-    mock.visibility = View.VISIBLE
+  override fun showItems(items: List<PostVM>) {
+    adapter.updateItems(items)
+  }
+
+  private fun setupRecycler() {
+    with (recycler) {
+      layoutManager = CardStackLayoutManager(context)
+      adapter = this@FeedFragment.adapter
+    }
   }
 }
