@@ -49,7 +49,7 @@ class FeedPresenter : MvpPresenter {
               response.body()?.let {
                 val groups = it.response
                 for (i in 0 until groups.size) {
-                  postVMs[i] = postVMs[i].copy(name = groups[0].name, imageUrl = groups[i].photo_50)
+                  postVMs[i] = postVMs[i].copy(name = groups[i].name, imageUrl = groups[i].photo_50)
                 }
                 view?.hideLoading()
                 view?.showItems(postVMs)
