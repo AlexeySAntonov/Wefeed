@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.aleksejantonov.wefeed.R
+import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.PhotoAttachment
 import com.aleksejantonov.wefeed.sl.SL
 import com.aleksejantonov.wefeed.ui.Screens.AUTH_SCREEN
 import com.vk.sdk.VKAccessToken

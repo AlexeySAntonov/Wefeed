@@ -1,5 +1,7 @@
 package com.aleksejantonov.wefeed.model.network.http.config
 
 object ApiConstants {
-  const val BASE_URL = "https://api.vk.com/"
+  const val BASE_URL = "https://api.vk.com/method/"
+  const val VERSION = "v"
+  const val TOKEN = "access_token"
 }
