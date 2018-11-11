@@ -22,6 +22,7 @@ import com.yuyakaido.android.cardstackview.Direction
 import com.yuyakaido.android.cardstackview.Direction.Left
 import com.yuyakaido.android.cardstackview.Direction.Right
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
+import kotlinx.android.synthetic.main.fragment_feed.giveMeMore
 import kotlinx.android.synthetic.main.fragment_feed.likeOverlay
 import kotlinx.android.synthetic.main.fragment_feed.progressOverlay
 import kotlinx.android.synthetic.main.fragment_feed.recycler
@@ -49,6 +50,7 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
     presenter.onAttach(this)
     skipOverlay.setOnClickListener { onSkipClick() }
     likeOverlay.setOnClickListener { onLikeClick() }
+    giveMeMore.setOnClickListener { presenter.giveMeMore() }
   }
 
   override fun onDestroyView() {
@@ -66,10 +68,12 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
   }
 
   override fun showLoading() {
+    giveMeMore.visible = false
     progressOverlay.visible = true
   }
 
   override fun hideLoading() {
+    giveMeMore.visible = true
     progressOverlay.visible = false
   }
 
@@ -83,6 +87,7 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
 
   override fun onCardDragging(direction: Direction?, ratio: Float) {
     Timber.d("Drag")
+    // TODO показывать боковые плашки
   }
 
   override fun onCardSwiped(direction: Direction) {
@@ -113,6 +118,8 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
   private fun setupRecycler() {
     with(recycler) {
       this@FeedFragment.layoutManager = CardStackLayoutManager(context, this@FeedFragment)
+      this@FeedFragment.layoutManager.setVisibleCount(3)
+      this@FeedFragment.layoutManager.setMaxDegree(10f)
       layoutManager = this@FeedFragment.layoutManager
       adapter = this@FeedFragment.adapter
     }
@@ -149,7 +156,9 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
   }
 
   private fun lazyLoading() {
-    if (layoutManager.topPosition == adapter.itemCount - 5) {
+    val position = layoutManager.topPosition
+    val itemsCount = adapter.itemCount
+    if (position == itemsCount - 5) {
       presenter.loadData(false)
     }
   }

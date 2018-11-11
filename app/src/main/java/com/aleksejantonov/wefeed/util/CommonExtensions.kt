@@ -4,6 +4,7 @@ import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.aleksejantonov.wefeed.ui.main.MainActivity
 
@@ -30,3 +31,14 @@ var View.visible: Boolean
 fun <T> List<T>?.notNullNotEmpty() = this != null && this.isNotEmpty()
 
 fun <T> List<T>?.nullOrEmpty() = this == null || this.isEmpty()
+
+fun TextView.isEllipsized(): Boolean {
+  val layout = this.layout
+  layout?.let {
+    val lines = it.lineCount
+    if (lines > 0) {
+      if (it.getEllipsisCount(lines - 1) > 0) return true
+    }
+  }
+  return false
+}

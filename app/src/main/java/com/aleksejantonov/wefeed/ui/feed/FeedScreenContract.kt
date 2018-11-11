@@ -17,4 +17,5 @@ interface MvpPresenter {
   fun loadData(initial: Boolean = true)
   fun sendLike(position: Int)
   fun dislike(position: Int)
+  fun giveMeMore()
 }

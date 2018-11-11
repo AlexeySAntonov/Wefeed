@@ -98,11 +98,66 @@
         android:maxLines="3"
         android:textColor="@color/mainTextFontColor"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/linkButton"
+        app:layout_constraintBottom_toTopOf="@+id/textBarrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainImage"
         app:layout_goneMarginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/mainTextExpanded"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/mainTextFontColor"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/textBarrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainImage"
+        app:layout_goneMarginBottom="12dp"/>
+
+    <View
+        android:id="@+id/textBarrier"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/expandButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainText"/>
+
+    <View
+        android:id="@+id/buttonsBarrier"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/expandButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textBarrier"/>
+
+    <Button
+        android:id="@+id/expandButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_margin="4dp"
+        android:drawableEnd="@drawable/ic_dropdown_16"
+        android:fontFamily="sans-serif-medium"
+        android:includeFontPadding="false"
+        android:text="@string/expand_button_text"
+        android:textColor="@color/expandButtonFontColor"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonsBarrier"/>
 
     <Button
         android:id="@+id/linkButton"
@@ -117,6 +172,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonsBarrier"
         tools:text="Читать"/>
 
   </android.support.constraint.ConstraintLayout>

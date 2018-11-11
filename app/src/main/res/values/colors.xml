@@ -11,4 +11,5 @@
   <color name="tabUnselected">#40FFFFFF</color>
   <color name="mainTextFontColor">#2A2D31</color>
   <color name="actionButtonsBackgroundPressedColor">@color/colorPrimaryDark</color>
+  <color name="expandButtonFontColor">#99A2AD</color>
 </resources>

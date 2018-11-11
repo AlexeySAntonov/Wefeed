@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import com.aleksejantonov.wefeed.R
 import com.aleksejantonov.wefeed.ui.feed.adapter.CardsAdapter.CardViewHolder
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
+import com.aleksejantonov.wefeed.util.isEllipsized
 import com.aleksejantonov.wefeed.util.visible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_post.view.dateView
+import kotlinx.android.synthetic.main.item_post.view.expandButton
 import kotlinx.android.synthetic.main.item_post.view.linkButton
 import kotlinx.android.synthetic.main.item_post.view.mainImage
 import kotlinx.android.synthetic.main.item_post.view.mainText
+import kotlinx.android.synthetic.main.item_post.view.mainTextExpanded
 import kotlinx.android.synthetic.main.item_post.view.postUserAvatar
 import kotlinx.android.synthetic.main.item_post.view.tabLayout
 import kotlinx.android.synthetic.main.item_post.view.userName
@@ -49,6 +52,15 @@ class CardsAdapter(
         userName.text = post.name
         dateView.text = post.date
         mainText.text = post.text
+        if (mainText.isEllipsized()) {
+          expandButton.visible = true
+          expandButton.setOnClickListener {
+            mainText.visible = false
+            mainTextExpanded.visible = true
+            mainTextExpanded.text = post.text
+          }
+        }
+
         linkButton.apply {
           visible = post.type == "link"
           text = post.linkButtonTitle
