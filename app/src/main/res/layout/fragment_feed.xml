@@ -4,15 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/feedScreenBackground"
-    android:paddingTop="@dimen/guide_margin_padding">
+    android:background="@color/feedScreenBackground">
 
   <com.yuyakaido.android.cardstackview.CardStackView
       android:id="@+id/recycler"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_margin="@dimen/card_side_margin"
-      app:layout_constraintBottom_toTopOf="@+id/skipButton"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"/>
@@ -28,7 +26,6 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/likeButton"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/recycler"
       app:srcCompat="@drawable/ic_skip_36"/>
 
   <ImageView

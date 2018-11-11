@@ -10,6 +10,8 @@ import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_post.view.dateView
+import kotlinx.android.synthetic.main.item_post.view.mainImage
+import kotlinx.android.synthetic.main.item_post.view.mainText
 import kotlinx.android.synthetic.main.item_post.view.postUserAvatar
 import kotlinx.android.synthetic.main.item_post.view.userName
 
@@ -39,13 +41,20 @@ class CardsAdapter : RecyclerView.Adapter<CardViewHolder>() {
       itemView.apply {
         userName.text = post.name
         dateView.text = post.date
-        Glide.with(context)
-            .load(post.imageUrl)
+        mainText.text = post.text
+        val imgRequestManager = Glide.with(context)
+        imgRequestManager
+            .load(post.avatarUrl)
             .apply(
                 RequestOptions
                     .circleCropTransform()
             )
             .into(postUserAvatar)
+        if (post.imageUrls.isNotEmpty()) {
+          imgRequestManager
+              .load(post.imageUrls[0])
+              .into(mainImage)
+        }
       }
     }
   }
