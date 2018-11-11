@@ -31,9 +31,11 @@
         android:id="@+id/userName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
         android:layout_marginStart="10dp"
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
+        android:gravity="start"
         android:maxLines="1"
         android:textColor="@color/postUserNameFontColor"
         android:textSize="14sp"
@@ -66,16 +68,21 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postUserAvatar">
 
       <android.support.design.widget.TabLayout
           android:id="@+id/tabLayout"
           style="@style/TabLayoutStyle"
           android:layout_width="match_parent"
-          android:layout_height="32dp"/>
+          android:layout_height="2dp"/>
 
     </android.support.v4.view.ViewPager>
 

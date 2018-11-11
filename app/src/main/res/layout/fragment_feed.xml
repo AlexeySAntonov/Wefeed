@@ -15,29 +15,53 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"/>
 
-  <ImageView
-      android:id="@+id/skipButton"
+  <View
+      android:id="@+id/skipOverlay"
       android:layout_width="@dimen/action_buttons_size"
       android:layout_height="@dimen/action_buttons_size"
       android:layout_marginBottom="@dimen/guide_margin_padding"
-      android:layout_marginTop="@dimen/guide_margin_padding"
+      android:layout_marginEnd="8dp"
       android:background="@drawable/bg_action_buttons"
       android:elevation="4dp"
+      android:foreground="?selectableItemBackground"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/likeButton"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/likeOverlay"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      app:layout_constraintStart_toStartOf="parent"/>
+
+  <ImageView
+      android:id="@+id/skipButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:elevation="4dp"
+      app:layout_constraintBottom_toBottomOf="@+id/skipOverlay"
+      app:layout_constraintEnd_toEndOf="@+id/skipOverlay"
+      app:layout_constraintStart_toStartOf="@+id/skipOverlay"
+      app:layout_constraintTop_toTopOf="@+id/skipOverlay"
       app:srcCompat="@drawable/ic_skip_36"/>
+
+  <View
+      android:id="@+id/likeOverlay"
+      android:layout_width="@dimen/action_buttons_size"
+      android:layout_height="@dimen/action_buttons_size"
+      android:layout_marginBottom="@dimen/guide_margin_padding"
+      android:layout_marginStart="8dp"
+      android:background="@drawable/bg_action_buttons"
+      android:elevation="4dp"
+      android:foreground="?selectableItemBackground"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/skipOverlay"/>
 
   <ImageView
       android:id="@+id/likeButton"
-      android:layout_width="@dimen/action_buttons_size"
-      android:layout_height="@dimen/action_buttons_size"
-      android:background="@drawable/bg_action_buttons"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:elevation="4dp"
-      app:layout_constraintBottom_toBottomOf="@+id/skipButton"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/skipButton"
-      app:layout_constraintTop_toTopOf="@+id/skipButton"
+      app:layout_constraintBottom_toBottomOf="@+id/likeOverlay"
+      app:layout_constraintEnd_toEndOf="@+id/likeOverlay"
+      app:layout_constraintStart_toStartOf="@+id/likeOverlay"
+      app:layout_constraintTop_toTopOf="@+id/likeOverlay"
       app:srcCompat="@drawable/ic_like_36"/>
 
   <include

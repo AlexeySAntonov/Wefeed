@@ -1,5 +1,7 @@
 package com.aleksejantonov.wefeed.ui.feed.adapter
 
+import android.support.design.widget.TabLayout
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,9 @@ import kotlinx.android.synthetic.main.item_post.view.dateView
 import kotlinx.android.synthetic.main.item_post.view.mainImage
 import kotlinx.android.synthetic.main.item_post.view.mainText
 import kotlinx.android.synthetic.main.item_post.view.postUserAvatar
+import kotlinx.android.synthetic.main.item_post.view.tabLayout
 import kotlinx.android.synthetic.main.item_post.view.userName
+import kotlinx.android.synthetic.main.item_post.view.viewPager
 
 class CardsAdapter : RecyclerView.Adapter<CardViewHolder>() {
 
@@ -55,7 +59,17 @@ class CardsAdapter : RecyclerView.Adapter<CardViewHolder>() {
               .load(post.imageUrls[0])
               .into(mainImage)
         }
+        if (post.imageUrls.size > 1) {
+          setupTabLayout(tabLayout, viewPager, post.imageUrls)
+        }
       }
+    }
+
+    private fun setupTabLayout(tabLayout: TabLayout, viewPager: ViewPager, imageUrls: List<String>) {
+      for (url in imageUrls) {
+        tabLayout.addTab(tabLayout.newTab())
+      }
+      tabLayout.setupWithViewPager(viewPager)
     }
   }
 }
