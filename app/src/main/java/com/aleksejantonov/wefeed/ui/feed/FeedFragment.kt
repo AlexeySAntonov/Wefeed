@@ -5,14 +5,21 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
 import com.aleksejantonov.wefeed.R
 import com.aleksejantonov.wefeed.sl.SL
 import com.aleksejantonov.wefeed.ui.feed.adapter.CardsAdapter
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
 import com.aleksejantonov.wefeed.util.visible
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
+import com.yuyakaido.android.cardstackview.Direction
+import com.yuyakaido.android.cardstackview.Direction.Left
+import com.yuyakaido.android.cardstackview.Direction.Right
+import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
+import kotlinx.android.synthetic.main.fragment_feed.likeOverlay
 import kotlinx.android.synthetic.main.fragment_feed.progressOverlay
 import kotlinx.android.synthetic.main.fragment_feed.recycler
+import kotlinx.android.synthetic.main.fragment_feed.skipOverlay
 
 class FeedFragment : Fragment(), MvpView {
   companion object {
@@ -21,6 +28,7 @@ class FeedFragment : Fragment(), MvpView {
 
   private val presenter by lazy { SL.componentManager().feedComponent().presenter }
   private val adapter by lazy { CardsAdapter() }
+  private lateinit var layoutManager: CardStackLayoutManager
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_feed, container, false)
@@ -30,6 +38,8 @@ class FeedFragment : Fragment(), MvpView {
     super.onViewCreated(view, savedInstanceState)
     setupRecycler()
     presenter.onAttach(this)
+    skipOverlay.setOnClickListener { onSkipClick() }
+    likeOverlay.setOnClickListener { onLikeClick() }
   }
 
   override fun onDestroyView() {
@@ -56,8 +66,27 @@ class FeedFragment : Fragment(), MvpView {
 
   private fun setupRecycler() {
     with(recycler) {
-      layoutManager = CardStackLayoutManager(context)
+      this@FeedFragment.layoutManager = CardStackLayoutManager(context)
+      layoutManager = this@FeedFragment.layoutManager
       adapter = this@FeedFragment.adapter
     }
+  }
+
+  private fun onSkipClick() {
+    layoutManager.setSwipeAnimationSetting(animationSettings(Left))
+    recycler.swipe()
+  }
+
+  private fun onLikeClick() {
+    layoutManager.setSwipeAnimationSetting(animationSettings(Right))
+    recycler.swipe()
+  }
+
+  private fun animationSettings(direction: Direction): SwipeAnimationSetting {
+    return SwipeAnimationSetting.Builder()
+        .setDirection(direction)
+        .setDuration(300)
+        .setInterpolator(AccelerateInterpolator())
+        .build()
   }
 }

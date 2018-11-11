@@ -10,4 +10,5 @@
   <color name="postDateFontColor">#818C99</color>
   <color name="tabUnselected">#40FFFFFF</color>
   <color name="mainTextFontColor">#2A2D31</color>
+  <color name="actionButtonsBackgroundPressedColor">@color/colorPrimaryDark</color>
 </resources>
