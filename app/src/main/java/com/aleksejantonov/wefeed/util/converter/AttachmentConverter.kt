@@ -1,6 +1,7 @@
 package com.aleksejantonov.wefeed.util.converter
 
 import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment
+import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.AudioAttachment
 import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.LinkAttachment
 import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.PhotoAttachment
 import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.VideoAttachment
@@ -15,6 +16,7 @@ class AttachmentConverter : JsonDeserializer<Attachment> {
     const val VIDEO = "video"
     const val PHOTO = "photo"
     const val LINK = "link"
+    const val AUDIO = "audio"
   }
 
   override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Attachment? {
@@ -24,6 +26,7 @@ class AttachmentConverter : JsonDeserializer<Attachment> {
         VIDEO -> return context.deserialize(json, VideoAttachment::class.java)
         PHOTO -> return context.deserialize(json, PhotoAttachment::class.java)
         LINK  -> return context.deserialize(json, LinkAttachment::class.java)
+        AUDIO -> return context.deserialize(json, AudioAttachment::class.java)
       }
     }
     return null

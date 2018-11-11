@@ -4,6 +4,7 @@ sealed class Attachment(open val type: String = "") {
   data class PhotoAttachment(val photo: PhotoContent) : Attachment()
   data class VideoAttachment(val video: VideoContent) : Attachment()
   data class LinkAttachment(val link: LinkContent) : Attachment()
+  data class AudioAttachment(val audio: AudioContent) : Attachment()
 }
 
 data class PhotoContent(
@@ -76,5 +77,15 @@ data class LinkPhoto(
 
 data class LinkButton(
     val title: String,
+    val url: String
+)
+
+data class AudioContent(
+    val id: Long,
+    val owner_id: Long,
+    val artist: String,
+    val title: String,
+    val duration: Long,
+    val date: Long,
     val url: String
 )

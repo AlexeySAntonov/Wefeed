@@ -63,7 +63,7 @@ class CardsAdapter(
                     .circleCropTransform()
             )
             .into(postUserAvatar)
-        if (post.imageUrls.isNotEmpty()) {
+        if (post.imageUrls.isNotEmpty() && post.imageUrls[0].isNotBlank()) {
           imgRequestManager
               .load(post.imageUrls[0])
               .into(mainImage)

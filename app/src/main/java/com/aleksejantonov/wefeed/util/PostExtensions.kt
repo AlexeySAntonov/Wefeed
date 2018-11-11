@@ -1,5 +1,6 @@
 package com.aleksejantonov.wefeed.util
 
+import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.AudioAttachment
 import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.LinkAttachment
 import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.PhotoAttachment
 import com.aleksejantonov.wefeed.model.network.entity.feed.Attachment.VideoAttachment
@@ -14,6 +15,7 @@ fun Post.toVM(): PostVM {
         is PhotoAttachment -> attachments[0]?.let { (it as PhotoAttachment).type } ?: ""
         is VideoAttachment -> attachments[0]?.let { (it as VideoAttachment).type } ?: ""
         is LinkAttachment  -> attachments[0]?.let { (it as LinkAttachment).type } ?: ""
+        is AudioAttachment -> attachments[0]?.let { (it as AudioAttachment).type } ?: ""
       },
       text = text,
       date = date.toReadableDate(),
@@ -23,6 +25,7 @@ fun Post.toVM(): PostVM {
           is PhotoAttachment -> it.photo.photo_604
           is VideoAttachment -> it.video.photo_320
           is LinkAttachment  -> it.link.photo.photo_604
+          else               -> ""
         }
       },
       linkButtonTitle = if (attachments[0].type == "link") (attachments[0] as LinkAttachment).link.button?.let { it.title } ?: "Читать" else "",
