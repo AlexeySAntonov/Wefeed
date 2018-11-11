@@ -28,7 +28,7 @@ fun Post.toVM(): PostVM {
           else               -> ""
         }
       },
-      linkButtonTitle = if (attachments[0].type == "link") (attachments[0] as LinkAttachment).link.button?.let { it.title } ?: "Читать" else "",
-      linkButtonLink = if (attachments[0].type == "link") (attachments[0] as LinkAttachment).link.button?.let { it.url } ?: "" else ""
+      linkButtonTitle = if (attachments[0].type == "link") (attachments[0] as LinkAttachment).link.button?.title ?: "читать" else "",
+      linkButtonLink = if (attachments[0].type == "link") (attachments[0] as LinkAttachment).link.url else ""
   )
 }

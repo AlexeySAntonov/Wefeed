@@ -9,6 +9,6 @@ data class PostVM(
     val avatarUrl: String = "",
     val date: String = "",
     val imageUrls: List<String> = emptyList(),
-    val linkButtonTitle: String = "",
-    val linkButtonLink: String = ""
+    val linkButtonTitle: String? = "",
+    val linkButtonLink: String? = ""
 )

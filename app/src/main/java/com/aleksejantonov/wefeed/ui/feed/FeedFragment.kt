@@ -17,6 +17,7 @@ import com.aleksejantonov.wefeed.util.mainActivity
 import com.aleksejantonov.wefeed.util.toast
 import com.aleksejantonov.wefeed.util.visible
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
+import com.yuyakaido.android.cardstackview.CardStackListener
 import com.yuyakaido.android.cardstackview.Direction
 import com.yuyakaido.android.cardstackview.Direction.Left
 import com.yuyakaido.android.cardstackview.Direction.Right
@@ -25,8 +26,9 @@ import kotlinx.android.synthetic.main.fragment_feed.likeOverlay
 import kotlinx.android.synthetic.main.fragment_feed.progressOverlay
 import kotlinx.android.synthetic.main.fragment_feed.recycler
 import kotlinx.android.synthetic.main.fragment_feed.skipOverlay
+import timber.log.Timber
 
-class FeedFragment : Fragment(), MvpView {
+class FeedFragment : Fragment(), MvpView, CardStackListener {
   companion object {
     fun newInstance() = FeedFragment()
   }
@@ -77,9 +79,32 @@ class FeedFragment : Fragment(), MvpView {
     mainActivity?.toast(textRes)
   }
 
+  override fun onCardDragging(direction: Direction?, ratio: Float) {
+    Timber.d("Drag")
+  }
+
+  override fun onCardSwiped(direction: Direction) {
+    Timber.d("Swipe")
+    when (direction) {
+      Right -> presenter.sendLike(layoutManager.topPosition - 1)
+      Left  -> presenter.dislike(layoutManager.topPosition - 1)
+      else  -> {
+        // Do nothing
+      }
+    }
+  }
+
+  override fun onCardCanceled() {
+    Timber.d("Cancel")
+  }
+
+  override fun onCardRewound() {
+    Timber.d("Rewound")
+  }
+
   private fun setupRecycler() {
     with(recycler) {
-      this@FeedFragment.layoutManager = CardStackLayoutManager(context)
+      this@FeedFragment.layoutManager = CardStackLayoutManager(context, this@FeedFragment)
       layoutManager = this@FeedFragment.layoutManager
       adapter = this@FeedFragment.adapter
     }
@@ -106,6 +131,10 @@ class FeedFragment : Fragment(), MvpView {
   }
 
   private fun onLinkButtonClick(url: String) {
-    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    if (url.isBlank() || (url.startsWith("http://").not() && url.startsWith("https://").not())) {
+      showMessage(R.string.blank_url_message)
+    } else {
+      startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    }
   }
 }

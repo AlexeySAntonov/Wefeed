@@ -53,7 +53,7 @@ class CardsAdapter(
         linkButton.apply {
           visible = post.type == "link"
           text = post.linkButtonTitle
-          setOnClickListener { linkButtonListener.invoke(post.linkButtonLink) }
+          setOnClickListener { linkButtonListener.invoke(post.linkButtonLink ?: "") }
         }
         val imgRequestManager = Glide.with(context)
         imgRequestManager
