@@ -3,6 +3,7 @@ package com.aleksejantonov.wefeed.model.network.entity.feed
 sealed class Attachment {
   data class PhotoAttachment(val type: String, val photo: PhotoContent) : Attachment()
   data class VideoAttachment(val type: String, val video: VideoContent) : Attachment()
+  data class LinkAttachment(val type: String, val link: LinkContent) : Attachment()
 }
 
 data class PhotoContent(
@@ -44,4 +45,36 @@ data class VideoContent(
     val first_frame_130: String,
     val first_frame_800: String,
     val can_add: Int
+)
+
+data class LinkContent(
+    val url: String,
+    val title: String,
+    val caption: String,
+    val description: String,
+    val is_external: Int,
+    val photo: LinkPhoto,
+    val button: LinkButton
+)
+
+data class LinkPhoto(
+    val id: Long,
+    val album_id: Long,
+    val owner_id: Long,
+    val user_id: Long,
+    val photo_75: String,
+    val photo_130: String,
+    val photo_604: String,
+    val photo_807: String,
+    val photo_1280: String,
+    val photo_2560: String,
+    val width: Int,
+    val height: Int,
+    val text: String,
+    val date: Long
+)
+
+data class LinkButton(
+    val title: String,
+    val url: String
 )
