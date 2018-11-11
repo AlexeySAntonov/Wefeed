@@ -1,6 +1,8 @@
 package com.aleksejantonov.wefeed.ui.feed.viewModel
 
 data class PostVM(
+    val ownerId: Long,
+    val postId: Long,
     val type: String = "photo",
     val text: String = "",
     val name: String = "",

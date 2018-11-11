@@ -10,4 +10,9 @@ object ApiConstants {
 
   // Additional fields
   const val PHOTO_SMALL = "photo_50"
+
+  // Likes.add
+  const val ITEM_TYPE = "type"
+  const val OWNER_ID = "owner_id"
+  const val ITEM_ID = "item_id"
 }

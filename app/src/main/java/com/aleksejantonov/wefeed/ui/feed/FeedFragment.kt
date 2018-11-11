@@ -12,6 +12,8 @@ import com.aleksejantonov.wefeed.R
 import com.aleksejantonov.wefeed.sl.SL
 import com.aleksejantonov.wefeed.ui.feed.adapter.CardsAdapter
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
+import com.aleksejantonov.wefeed.util.mainActivity
+import com.aleksejantonov.wefeed.util.toast
 import com.aleksejantonov.wefeed.util.visible
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager
 import com.yuyakaido.android.cardstackview.Direction
@@ -66,6 +68,10 @@ class FeedFragment : Fragment(), MvpView {
     progressOverlay.visible = false
   }
 
+  override fun showLikesCount(count: Long) {
+    mainActivity?.toast(getString(R.string.likes_toast, count))
+  }
+
   private fun setupRecycler() {
     with(recycler) {
       this@FeedFragment.layoutManager = CardStackLayoutManager(context)
@@ -81,6 +87,7 @@ class FeedFragment : Fragment(), MvpView {
 
   private fun onLikeClick() {
     layoutManager.setSwipeAnimationSetting(animationSettings(Right))
+    presenter.sendLike(layoutManager.topPosition)
     recycler.swipe()
   }
 

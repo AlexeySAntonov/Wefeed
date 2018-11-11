@@ -2,6 +2,7 @@ package com.aleksejantonov.wefeed.ui.feed
 
 import com.aleksejantonov.wefeed.model.network.entity.feed.FeedResponseContainer
 import com.aleksejantonov.wefeed.model.network.entity.group.GroupResponseContainer
+import com.aleksejantonov.wefeed.model.network.entity.like.LikeResponseContainer
 import com.aleksejantonov.wefeed.sl.SL
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
 import com.aleksejantonov.wefeed.util.toVM
@@ -58,6 +59,19 @@ class FeedPresenter : MvpPresenter {
           }
 
           override fun onFailure(call: Call<GroupResponseContainer>, t: Throwable) = Timber.e(t)
+        })
+  }
+
+  override fun sendLike(position: Int) {
+    api.addlike(type = "post", ownerId = postVMs[position].ownerId, itemId = postVMs[position].postId, token = preferencesManager.getToken())
+        .enqueue(object : retrofit2.Callback<LikeResponseContainer> {
+          override fun onResponse(call: Call<LikeResponseContainer>, response: Response<LikeResponseContainer>) {
+            if (response.isSuccessful) {
+              response.body()?.let { view?.showLikesCount(it.response.likes) }
+            }
+          }
+
+          override fun onFailure(call: Call<LikeResponseContainer>, t: Throwable) = Timber.e(t)
         })
   }
 }
