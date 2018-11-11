@@ -1,9 +1,9 @@
 package com.aleksejantonov.wefeed.model.network.entity.feed
 
-sealed class Attachment {
-  data class PhotoAttachment(val type: String, val photo: PhotoContent) : Attachment()
-  data class VideoAttachment(val type: String, val video: VideoContent) : Attachment()
-  data class LinkAttachment(val type: String, val link: LinkContent) : Attachment()
+sealed class Attachment(open val type: String = "") {
+  data class PhotoAttachment(val photo: PhotoContent) : Attachment()
+  data class VideoAttachment(val video: VideoContent) : Attachment()
+  data class LinkAttachment(val link: LinkContent) : Attachment()
 }
 
 data class PhotoContent(

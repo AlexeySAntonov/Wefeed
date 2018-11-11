@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import com.aleksejantonov.wefeed.R
 import com.aleksejantonov.wefeed.ui.feed.adapter.CardsAdapter.CardViewHolder
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
+import com.aleksejantonov.wefeed.util.visible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_post.view.dateView
+import kotlinx.android.synthetic.main.item_post.view.linkButton
 import kotlinx.android.synthetic.main.item_post.view.mainImage
 import kotlinx.android.synthetic.main.item_post.view.mainText
 import kotlinx.android.synthetic.main.item_post.view.postUserAvatar
@@ -19,7 +21,9 @@ import kotlinx.android.synthetic.main.item_post.view.tabLayout
 import kotlinx.android.synthetic.main.item_post.view.userName
 import kotlinx.android.synthetic.main.item_post.view.viewPager
 
-class CardsAdapter : RecyclerView.Adapter<CardViewHolder>() {
+class CardsAdapter(
+    private val linkButtonListener: (String) -> Unit
+) : RecyclerView.Adapter<CardViewHolder>() {
 
   private var items: MutableList<PostVM> = mutableListOf()
 
@@ -46,6 +50,11 @@ class CardsAdapter : RecyclerView.Adapter<CardViewHolder>() {
         userName.text = post.name
         dateView.text = post.date
         mainText.text = post.text
+        linkButton.apply {
+          visible = post.type == "link"
+          text = post.linkButtonTitle
+          setOnClickListener { linkButtonListener.invoke(post.linkButtonLink) }
+        }
         val imgRequestManager = Glide.with(context)
         imgRequestManager
             .load(post.avatarUrl)

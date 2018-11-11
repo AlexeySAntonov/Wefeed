@@ -1,5 +1,7 @@
 package com.aleksejantonov.wefeed.ui.feed
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -27,7 +29,7 @@ class FeedFragment : Fragment(), MvpView {
   }
 
   private val presenter by lazy { SL.componentManager().feedComponent().presenter }
-  private val adapter by lazy { CardsAdapter() }
+  private val adapter by lazy { CardsAdapter(::onLinkButtonClick) }
   private lateinit var layoutManager: CardStackLayoutManager
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -88,5 +90,9 @@ class FeedFragment : Fragment(), MvpView {
         .setDuration(300)
         .setInterpolator(AccelerateInterpolator())
         .build()
+  }
+
+  private fun onLinkButtonClick(url: String) {
+    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
   }
 }
