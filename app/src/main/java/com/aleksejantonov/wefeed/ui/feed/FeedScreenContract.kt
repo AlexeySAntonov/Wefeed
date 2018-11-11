@@ -1,5 +1,6 @@
 package com.aleksejantonov.wefeed.ui.feed
 
+import android.support.annotation.StringRes
 import com.aleksejantonov.wefeed.ui.feed.viewModel.PostVM
 
 interface MvpView {
@@ -7,10 +8,12 @@ interface MvpView {
   fun showLoading()
   fun hideLoading()
   fun showLikesCount(count: Long)
+  fun showMessage(@StringRes textRes: Int)
 }
 
 interface MvpPresenter {
   fun onAttach(view: MvpView)
   fun detach()
   fun sendLike(position: Int)
+  fun dislike(position: Int)
 }

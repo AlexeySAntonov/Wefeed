@@ -3,6 +3,7 @@ package com.aleksejantonov.wefeed.ui.feed
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -72,6 +73,10 @@ class FeedFragment : Fragment(), MvpView {
     mainActivity?.toast(getString(R.string.likes_toast, count))
   }
 
+  override fun showMessage(@StringRes textRes: Int) {
+    mainActivity?.toast(textRes)
+  }
+
   private fun setupRecycler() {
     with(recycler) {
       this@FeedFragment.layoutManager = CardStackLayoutManager(context)
@@ -82,6 +87,7 @@ class FeedFragment : Fragment(), MvpView {
 
   private fun onSkipClick() {
     layoutManager.setSwipeAnimationSetting(animationSettings(Left))
+    presenter.dislike(layoutManager.topPosition)
     recycler.swipe()
   }
 

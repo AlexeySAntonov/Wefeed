@@ -1,5 +1,6 @@
 package com.aleksejantonov.wefeed.model.network.http
 
+import com.aleksejantonov.wefeed.model.network.entity.dislike.DislikeResponseContainer
 import com.aleksejantonov.wefeed.model.network.entity.feed.FeedResponseContainer
 import com.aleksejantonov.wefeed.model.network.entity.group.GroupResponseContainer
 import com.aleksejantonov.wefeed.model.network.entity.like.LikeResponseContainer
@@ -13,6 +14,8 @@ import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.PHOTO_SM
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.TOKEN
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.USER_ID
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.VERSION
+import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.VERSION_NUM
+import com.aleksejantonov.wefeed.model.network.http.config.ApiMethods.DISLIKE
 import com.aleksejantonov.wefeed.model.network.http.config.ApiMethods.GROUP_INFO
 import com.aleksejantonov.wefeed.model.network.http.config.ApiMethods.LIKES_ADD
 import com.aleksejantonov.wefeed.model.network.http.config.ApiMethods.NEWS_FEED
@@ -25,14 +28,14 @@ interface VKApi {
   @GET(NEWS_FEED)
   fun newsFeed(
       @Query(TOKEN) token: String,
-      @Query(VERSION) version: Double = 5.52
+      @Query(VERSION) version: Double = VERSION_NUM
   ): Call<FeedResponseContainer>
 
   @GET(GROUP_INFO)
   fun groupsInfo(
       @Query(GROUP_IDS) ids: String,
       @Query(TOKEN) token: String,
-      @Query(VERSION) version: Double = 5.52
+      @Query(VERSION) version: Double = VERSION_NUM
   ): Call<GroupResponseContainer>
 
   @GET(USER_INFO)
@@ -40,15 +43,24 @@ interface VKApi {
       @Query(USER_ID) id: Long,
       @Query(TOKEN) token: String,
       @Query(FIELDS) fields: String = PHOTO_SMALL,
-      @Query(VERSION) version: Double = 5.52
+      @Query(VERSION) version: Double = VERSION_NUM
   ): Call<UserResponseContainer>
 
   @GET(LIKES_ADD)
-  fun addlike(
+  fun addLike(
       @Query(ITEM_TYPE) type: String,
       @Query(OWNER_ID) ownerId: Long,
       @Query(ITEM_ID) itemId: Long,
       @Query(TOKEN) token: String,
-      @Query(VERSION) version: Double = 5.52
+      @Query(VERSION) version: Double = VERSION_NUM
   ): Call<LikeResponseContainer>
+
+  @GET(DISLIKE)
+  fun dislike(
+      @Query(ITEM_TYPE) type: String,
+      @Query(OWNER_ID) ownerId: Long,
+      @Query(ITEM_ID) itemId: Long,
+      @Query(TOKEN) token: String,
+      @Query(VERSION) version: Double = VERSION_NUM
+  ): Call<DislikeResponseContainer>
 }

@@ -1,5 +1,7 @@
 package com.aleksejantonov.wefeed.ui.feed
 
+import com.aleksejantonov.wefeed.R
+import com.aleksejantonov.wefeed.model.network.entity.dislike.DislikeResponseContainer
 import com.aleksejantonov.wefeed.model.network.entity.feed.FeedResponseContainer
 import com.aleksejantonov.wefeed.model.network.entity.group.GroupResponseContainer
 import com.aleksejantonov.wefeed.model.network.entity.like.LikeResponseContainer
@@ -63,7 +65,7 @@ class FeedPresenter : MvpPresenter {
   }
 
   override fun sendLike(position: Int) {
-    api.addlike(type = "post", ownerId = postVMs[position].ownerId, itemId = postVMs[position].postId, token = preferencesManager.getToken())
+    api.addLike(type = "post", ownerId = postVMs[position].ownerId, itemId = postVMs[position].postId, token = preferencesManager.getToken())
         .enqueue(object : retrofit2.Callback<LikeResponseContainer> {
           override fun onResponse(call: Call<LikeResponseContainer>, response: Response<LikeResponseContainer>) {
             if (response.isSuccessful) {
@@ -72,6 +74,19 @@ class FeedPresenter : MvpPresenter {
           }
 
           override fun onFailure(call: Call<LikeResponseContainer>, t: Throwable) = Timber.e(t)
+        })
+  }
+
+  override fun dislike(position: Int) {
+    api.dislike(type = "wall", ownerId = postVMs[position].ownerId, itemId = postVMs[position].postId, token = preferencesManager.getToken())
+        .enqueue(object : retrofit2.Callback<DislikeResponseContainer> {
+          override fun onResponse(call: Call<DislikeResponseContainer>, response: Response<DislikeResponseContainer>) {
+            if (response.isSuccessful) {
+              view?.showMessage(R.string.post_ignore_message)
+            }
+          }
+
+          override fun onFailure(call: Call<DislikeResponseContainer>, t: Throwable) = Timber.e(t)
         })
   }
 }

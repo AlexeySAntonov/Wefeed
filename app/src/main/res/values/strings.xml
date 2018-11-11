@@ -2,6 +2,7 @@
   <string name="app_name">wefeed</string>
   <string name="auth_label_text">авторизация</string>
   <string name="likes_toast">Лайков %d</string>
+  <string name="post_ignore_message">Больше не покажем Вам  этот пост :(</string>
 
   <integer name="com_vk_sdk_AppId">6747113</integer>
 </resources>
