@@ -110,6 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_margin="4dp"
+        android:background="@drawable/bg_link_button_background_selector"
         android:fontFamily="sans-serif"
         android:textColor="@color/mainTextFontColor"
         android:textSize="12sp"
