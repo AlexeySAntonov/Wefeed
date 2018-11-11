@@ -11,6 +11,7 @@ import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.ITEM_ID
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.ITEM_TYPE
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.OWNER_ID
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.PHOTO_SMALL
+import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.START_FROM
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.TOKEN
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.USER_ID
 import com.aleksejantonov.wefeed.model.network.http.config.ApiConstants.VERSION
@@ -27,6 +28,7 @@ import retrofit2.http.Query
 interface VKApi {
   @GET(NEWS_FEED)
   fun newsFeed(
+      @Query(START_FROM) chunk: String,
       @Query(TOKEN) token: String,
       @Query(VERSION) version: Double = VERSION_NUM
   ): Call<FeedResponseContainer>

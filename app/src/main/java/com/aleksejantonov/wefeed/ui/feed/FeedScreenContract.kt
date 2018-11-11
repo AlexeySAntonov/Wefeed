@@ -14,6 +14,7 @@ interface MvpView {
 interface MvpPresenter {
   fun onAttach(view: MvpView)
   fun detach()
+  fun loadData(initial: Boolean = true)
   fun sendLike(position: Int)
   fun dislike(position: Int)
 }

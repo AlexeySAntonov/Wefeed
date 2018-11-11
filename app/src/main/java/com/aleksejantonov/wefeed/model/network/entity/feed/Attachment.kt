@@ -54,8 +54,8 @@ data class LinkContent(
     val caption: String,
     val description: String,
     val is_external: Int,
-    val photo: LinkPhoto,
-    val button: LinkButton
+    val photo: LinkPhoto?,
+    val button: LinkButton?
 )
 
 data class LinkPhoto(

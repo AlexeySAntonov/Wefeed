@@ -17,6 +17,8 @@ class FeedPresenter : MvpPresenter {
   private val preferencesManager by lazy { SL.componentManager().appComponent().preferencesManager }
   private var view: MvpView? = null
   private val postVMs = mutableListOf<PostVM>()
+  private val bufferVMs = mutableListOf<PostVM>()
+  private var nextChunk = "0"
 
   override fun onAttach(view: MvpView) {
     this.view = view
@@ -27,14 +29,19 @@ class FeedPresenter : MvpPresenter {
     view = null
   }
 
-  private fun loadData() {
-    view?.showLoading()
-    api.newsFeed(token = preferencesManager.getToken()).enqueue(object : retrofit2.Callback<FeedResponseContainer> {
+  override fun loadData(initial: Boolean) {
+    if (initial) view?.showLoading()
+    api.newsFeed(chunk = nextChunk, token = preferencesManager.getToken()).enqueue(object : retrofit2.Callback<FeedResponseContainer> {
       override fun onResponse(call: Call<FeedResponseContainer>, response: Response<FeedResponseContainer>) {
         if (response.isSuccessful) {
           response.body()?.let {
             val posts = it.response.items
-            postVMs.addAll(posts.map { post -> post.toVM() })
+            nextChunk = it.response.next_from
+            bufferVMs.clear()
+            posts.map { post -> post.toVM() }.let {
+              postVMs.addAll(it)
+              bufferVMs.addAll(it)
+            }
             loadAdditionalInfo(posts.map { post -> Math.abs(post.source_id) })
           }
         }
@@ -52,10 +59,10 @@ class FeedPresenter : MvpPresenter {
               response.body()?.let {
                 val groups = it.response
                 for (i in 0 until groups.size) {
-                  postVMs[i] = postVMs[i].copy(name = groups[i].name, avatarUrl = groups[i].photo_50)
+                  bufferVMs[i] = bufferVMs[i].copy(name = groups[i].name, avatarUrl = groups[i].photo_50)
                 }
                 view?.hideLoading()
-                view?.showItems(postVMs)
+                view?.showItems(bufferVMs)
               }
             }
           }

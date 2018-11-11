@@ -36,6 +36,8 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
   private val presenter by lazy { SL.componentManager().feedComponent().presenter }
   private val adapter by lazy { CardsAdapter(::onLinkButtonClick) }
   private lateinit var layoutManager: CardStackLayoutManager
+  private var manualLike = false
+  private var manualSkip = false
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.fragment_feed, container, false)
@@ -84,10 +86,16 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
   }
 
   override fun onCardSwiped(direction: Direction) {
-    Timber.d("Swipe")
+    lazyLoading()
     when (direction) {
-      Right -> presenter.sendLike(layoutManager.topPosition - 1)
-      Left  -> presenter.dislike(layoutManager.topPosition - 1)
+      Right -> {
+        if (manualLike) manualLike = false
+        else presenter.sendLike(layoutManager.topPosition - 1)
+      }
+      Left  -> {
+        if (manualSkip) manualSkip = false
+        else presenter.dislike(layoutManager.topPosition - 1)
+      }
       else  -> {
         // Do nothing
       }
@@ -111,12 +119,14 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
   }
 
   private fun onSkipClick() {
+    manualSkip = true
     layoutManager.setSwipeAnimationSetting(animationSettings(Left))
     presenter.dislike(layoutManager.topPosition)
     recycler.swipe()
   }
 
   private fun onLikeClick() {
+    manualLike = true
     layoutManager.setSwipeAnimationSetting(animationSettings(Right))
     presenter.sendLike(layoutManager.topPosition)
     recycler.swipe()
@@ -135,6 +145,12 @@ class FeedFragment : Fragment(), MvpView, CardStackListener {
       showMessage(R.string.blank_url_message)
     } else {
       startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    }
+  }
+
+  private fun lazyLoading() {
+    if (layoutManager.topPosition == adapter.itemCount - 5) {
+      presenter.loadData(false)
     }
   }
 }

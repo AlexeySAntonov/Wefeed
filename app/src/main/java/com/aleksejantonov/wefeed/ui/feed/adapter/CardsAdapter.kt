@@ -38,7 +38,6 @@ class CardsAdapter(
 
   fun updateItems(items: List<PostVM>) {
     with(this.items) {
-      clear()
       addAll(items)
       notifyDataSetChanged()
     }

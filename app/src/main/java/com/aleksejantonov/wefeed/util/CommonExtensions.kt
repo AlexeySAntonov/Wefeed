@@ -26,3 +26,7 @@ var View.visible: Boolean
   set(value) {
     visibility = if (value) View.VISIBLE else View.GONE
   }
+
+fun <T> List<T>?.notNullNotEmpty() = this != null && this.isNotEmpty()
+
+fun <T> List<T>?.nullOrEmpty() = this == null || this.isEmpty()
