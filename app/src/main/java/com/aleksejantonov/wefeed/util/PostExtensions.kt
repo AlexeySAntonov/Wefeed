@@ -17,6 +17,7 @@ fun Post.toVM(): PostVM {
           is VideoAttachment -> attachments[0]?.let { (it as VideoAttachment).type } ?: ""
           is LinkAttachment  -> attachments[0]?.let { (it as LinkAttachment).type } ?: ""
           is AudioAttachment -> attachments[0]?.let { (it as AudioAttachment).type } ?: ""
+          else               -> ""
         }
       } else "",
       text = text,
@@ -31,10 +32,10 @@ fun Post.toVM(): PostVM {
           }
         }
       } else emptyList(),
-      linkButtonTitle = if (attachments.notNullNotEmpty() && attachments[0].type == "link") {
+      linkButtonTitle = if (attachments.notNullNotEmpty() && attachments[0] != null && attachments[0].type == "link") {
         (attachments[0] as LinkAttachment).link.button?.title ?: "читать"
       } else "",
-      linkButtonLink = if (attachments.notNullNotEmpty() && attachments[0].type == "link") {
+      linkButtonLink = if (attachments.notNullNotEmpty() && attachments[0] != null && attachments[0].type == "link") {
         (attachments[0] as LinkAttachment).link.url
       } else ""
   )

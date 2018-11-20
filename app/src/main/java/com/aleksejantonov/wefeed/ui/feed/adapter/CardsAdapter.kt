@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.item_post.view.expandButton
 import kotlinx.android.synthetic.main.item_post.view.linkButton
 import kotlinx.android.synthetic.main.item_post.view.mainImage
 import kotlinx.android.synthetic.main.item_post.view.mainText
-import kotlinx.android.synthetic.main.item_post.view.mainTextExpanded
 import kotlinx.android.synthetic.main.item_post.view.postUserAvatar
 import kotlinx.android.synthetic.main.item_post.view.tabLayout
 import kotlinx.android.synthetic.main.item_post.view.userName
@@ -55,10 +54,11 @@ class CardsAdapter(
         if (mainText.isEllipsized()) {
           expandButton.visible = true
           expandButton.setOnClickListener {
-            mainText.visible = false
-            mainTextExpanded.visible = true
-            mainTextExpanded.text = post.text
+
           }
+        } else {
+          expandButton.visible = false
+
         }
 
         linkButton.apply {
